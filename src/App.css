@@ -85,6 +85,7 @@
 
 .quiz-question {
   font-family: 'Karla';
+  word-wrap: break-word;
   font-style: normal;
   margin: 12px 0px;
   font-weight: 700;

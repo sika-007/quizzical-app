@@ -1,10 +1,14 @@
 import React from "react"
 
 
-export default function QuizComponent() {
+export default function QuizComponent(props) {
+
+    const quizAnswers = [...props.wrongAnswers, props.answer]
+    console.log(quizAnswers)
+
     return (
         <>
-            <h3 className="quiz-question">How would one say goodbye in Spanish?</h3>
+            <h3 className="quiz-question">{props.question}</h3>
             <div className="quiz-options">
                 <div className="options option-1">Adios</div>
                 <div className="options option-2">Hola</div>
