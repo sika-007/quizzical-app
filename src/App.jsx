@@ -10,14 +10,29 @@ export default function App() {
   const [isQuizRunning, setIsQuizRunning] = useState(false)
   const [quizData, setQuizData] = useState([])
 
+  const [optionsObj, setOptionsObj] = useState(optionGenerator())
+  
+  console.log(quizData)
+    function optionGenerator() {
+      return quizData.map(quizDatum => {
+        return (
+          {question: quizDatum.question, options: [
+            {option: quizDatum.incorrect_answers[0], isSelected:false, isCorrect: false, id: nanoid()}, 
+            {option: quizDatum.incorrect_answers[1], isSelected:false, isCorrect: false, id: nanoid()}, 
+            {option: quizDatum.incorrect_answers[2], isSelected:false, isCorrect: false, id: nanoid()}, 
+            {option: quizDatum.correct_answer, isSelected:false, isCorrect: true, id: nanoid()}
+        ]}
+        )
+      })
+    }
+
   //The area for dealing with side effects
   useEffect(() => {
+    console.log("ran")
     fetch("https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple")
       .then(res => res.json(res))
       .then(data => setQuizData(data.results))
-  }, [isQuizRunning])
-
-  console.log(quizData)
+  }, [])
 
   
 
@@ -26,17 +41,24 @@ export default function App() {
     setIsQuizRunning(prevVal => !prevVal)
   }
 
+  
   //Mapping over  the arrays of objects returrned from the API to render multiple look-alike components
-  const quizElements = quizData.map((data) => {
+  const quizElements = optionsObj.map((data) => {
+    const uniqueId = nanoid()
     return ( 
-    <QuizComponent 
-      key={nanoid()}
+    <QuizComponent
+      key={uniqueId}
+      id={uniqueId}
+      options={data.options}
       question={data.question.replace(/&quot;|&shy;|&#039;|&rsquo;/g, "'").replace(/&rdquo;&hellip;/, "print")}
-      answer={data.correct_answer}
-      wrongAnswers={data.incorrect_answers}
+      answer={data.options[3].option.replace(/&quot;|&shy;|&#039;|&rsquo;/g, "'").replace("&iacute;", "í").replace("&oacute;", "ó")}
+      wrongAnswer1={data.options[1].option.replace(/&quot;|&shy;|&#039;|&rsquo;/g, "'").replace("&oacute;", "ó")}
+      wrongAnswer2={data.options[2].option.replace(/&quot;|&shy;|&#039;|&rsquo;/g, "'").replace("&oacute;", "ó")}
+      wrongAnswer3={data.options[3].option.replace(/&quot;|&shy;|&#039;|&rsquo;/g, "'").replace("&oacute;", "ó")}
     />
-    )
-  })
+    )}  
+  )
+  
 
   //Everything is still hard coded at this point. this will change in the future
   return isQuizRunning ? (
