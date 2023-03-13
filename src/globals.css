@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        @apply font-sand text-indigo-900
+    }
+
+    #root {
+        @apply bg-slate-50 h-screen p-16 
+    }
+}
