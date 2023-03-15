@@ -15,9 +15,10 @@ export const QuizContextProvider = (props) => {
   const option3 = document.querySelectorAll(".option3")
   const option4 = document.querySelectorAll(".option4")
   const optionParents = document.querySelectorAll(".option-parent")
+  const totalScoreUI = document.querySelector(".total-score")
 
 
-  
+
   let options = {}
   for (let i = 0; i < option1?.length; i++) {
     options[i] = {option1: option1[i], option2: option2[i], option3: option3[i], option4: option4[i]}
@@ -29,7 +30,7 @@ export const QuizContextProvider = (props) => {
   useEffect(() => {
     async function getQuestions() {
       try {
-          const response = await axios.get("https://opentdb.com/api.php?amount=6&category=17&difficulty=hard&type=multiple")
+          const response = await axios.get("https://opentdb.com/api.php?amount=10&category=17&difficulty=hard&type=multiple")
           const data = await response?.data
           setQuestionsInfo(data?.results)
       } catch (error) {
@@ -115,11 +116,27 @@ export const QuizContextProvider = (props) => {
     for (let optionParent of optionParents) {
       optionParent.classList.add("pointer-events-none")
     }
+
+    totalScoreUI.classList.remove("invisible")
+    totalScoreUI.classList.add("visible")
   }
 
+  console.log(answers)
+
+  function getScore() {
+    let total = 0
+    for (let point of Object.values(answers)) {
+      if (point.isCorrect) {
+        total += 1
+      }
+    }
+    return total
+  }
+
+  const totalScore = getScore()
 
 
-  const context = {isRunning, setIsRunning, questionsInfo, setQuestionsInfo, answers, setAnswers, correctAnswerSelect, wrongAnswerSelect, optionSelect, setSelectedAnswer, revealAnswers}
+  const context = {isRunning, setIsRunning, questionsInfo, setQuestionsInfo, answers, setAnswers, correctAnswerSelect, wrongAnswerSelect, optionSelect, setSelectedAnswer, revealAnswers, totalScore}
 
   return (
     <QuizContext.Provider value={context}>
