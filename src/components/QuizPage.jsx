@@ -4,7 +4,7 @@ import { QuizContext } from './QuizContext'
 
 const QuizPage = () => {
 
-    const { questionsInfo, correctAnswerSelect, wrongAnswerSelect, optionSelect, setSelectedAnswer, revealAnswers, totalScore } = useContext(QuizContext)
+    const { questionsInfo, correctAnswerSelect, wrongAnswerSelect, optionSelect, setSelectedAnswer, revealAnswers, totalScore, setIsRunning } = useContext(QuizContext)
 
     const questionElements = questionsInfo?.map((questionInfo, index) => {
         return (
@@ -45,7 +45,8 @@ const QuizPage = () => {
             {questionElements}
             <div className='flex flex-col text-center items-center justify-around sm:flex-row active:'>
                 <p className='total-score invisible pb-4 font-bold text-md'> You got {totalScore}/{questionsInfo.length} answers correct</p>
-                <button className='bg-slate-900 self-center py-3 px-7 rounded-full text-violet-300 hover:bg-slate-800' onClick={() => revealAnswers()}>Submit</button>
+                <button className='bg-slate-900 self-center py-3 px-7 rounded-full text-violet-300 hover:bg-slate-800' onClick={() => revealAnswers()}>Check Answers</button>
+                <button className='bg-slate-900 self-center py-3 px-7 rounded-full text-violet-300 hover:bg-slate-800 play-again hidden' onClick={() => setIsRunning(false)}>Play Again</button>
             </div>
         </div>
     )

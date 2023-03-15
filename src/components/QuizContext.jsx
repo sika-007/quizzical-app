@@ -16,6 +16,7 @@ export const QuizContextProvider = (props) => {
   const option4 = document.querySelectorAll(".option4")
   const optionParents = document.querySelectorAll(".option-parent")
   const totalScoreUI = document.querySelector(".total-score")
+  const playAgainUI = document.querySelector(".play-again")
 
 
 
@@ -119,6 +120,7 @@ export const QuizContextProvider = (props) => {
 
     totalScoreUI.classList.remove("invisible")
     totalScoreUI.classList.add("visible")
+    playAgainUI.classList.remove("hidden")
   }
 
   console.log(answers)
