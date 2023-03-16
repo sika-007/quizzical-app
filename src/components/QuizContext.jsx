@@ -9,6 +9,7 @@ export const QuizContextProvider = (props) => {
   const [isRunning, setIsRunning] = useState(false)
   const [questionsInfo, setQuestionsInfo] = useState(null)
   const [answers, setAnswers] = useState({})
+  const [customization, setCustomization] = useState({difficulty: "easy", amount: "7", category: "27"})
 
   const option1 = document.querySelectorAll(".option1")
   const option2 = document.querySelectorAll(".option2")
@@ -31,7 +32,7 @@ export const QuizContextProvider = (props) => {
   useEffect(() => {
     async function getQuestions() {
       try {
-          const response = await axios.get("https://opentdb.com/api.php?amount=10&category=17&difficulty=hard&type=multiple")
+          const response = await axios.get(`https://opentdb.com/api.php?amount=${customization.amount}&category=${customization.category}&difficulty=${customization.difficulty}&type=multiple`)
           const data = await response?.data
           setQuestionsInfo(data?.results)
       } catch (error) {
@@ -39,7 +40,7 @@ export const QuizContextProvider = (props) => {
       }
     }  
     getQuestions()
-  }, [])
+  }, [customization])
 
 
   useEffect(() => {
@@ -138,7 +139,7 @@ export const QuizContextProvider = (props) => {
   const totalScore = getScore()
 
 
-  const context = {isRunning, setIsRunning, questionsInfo, setQuestionsInfo, answers, setAnswers, correctAnswerSelect, wrongAnswerSelect, optionSelect, setSelectedAnswer, revealAnswers, totalScore}
+  const context = {isRunning, setIsRunning, questionsInfo, setQuestionsInfo, answers, setAnswers, correctAnswerSelect, wrongAnswerSelect, optionSelect, setSelectedAnswer, revealAnswers, totalScore, setCustomization}
 
   return (
     <QuizContext.Provider value={context}>
