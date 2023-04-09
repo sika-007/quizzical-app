@@ -139,7 +139,7 @@ export const QuizContextProvider = (props) => {
   const totalScore = getScore()
 
 
-  const context = {isRunning, setIsRunning, questionsInfo, setQuestionsInfo, answers, setAnswers, correctAnswerSelect, wrongAnswerSelect, optionSelect, setSelectedAnswer, revealAnswers, totalScore, setCustomization}
+  const context = {isRunning, setIsRunning, questionsInfo, setQuestionsInfo, answers, setAnswers, correctAnswerSelect, wrongAnswerSelect, optionSelect, setSelectedAnswer, revealAnswers, totalScore, customization, setCustomization}
 
   return (
     <QuizContext.Provider value={context}>
