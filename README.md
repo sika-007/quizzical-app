@@ -3,7 +3,7 @@
 A fun app for anyone who want to test their knowledge😎.
 
 <div align="center"><img width="600px" src="https://user-images.githubusercontent.com/120806295/231488314-890c392a-97aa-446a-bb3f-89a771594f9a.png" /></div>
-![Quizzical]()
+
 
 ## Features
 - Customizable quiz category, number of questions, and difficulty.
